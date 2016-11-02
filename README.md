@@ -59,10 +59,13 @@ tuple is:
 where `x` and `y` are the top left cell of the ship, length is its length
 (2-5), and orientation is either `:across` or `:down`.
 
-### `take_turn(state, ships_remaining)`
+> NOTE: If your player implementation maintains any game-related state it is
+> important to reinitialize the state for each `new_game` call!
 
-`state` is a representation of the known state of the opponent’s fleet, as
-modified by the player’s shots. It is given as a list of lists; the inner
+### `take_turn(tracking_board, ships_remaining)`
+
+`tracking_board` is a representation of the known state of the opponent’s fleet,
+as modified by the player’s shots. It is given as a list of lists; the inner
 lists represent horizontal rows. Each cell may be in one of three states:
 `:unknown`, `:hit`, or `:miss`. E.g.
 
@@ -112,7 +115,7 @@ game between the two provided example players:
 
     mix deps.get
     mix deps.compile
-    mix run bin/play_game.exs Battleship.Player.Random Battleship.Player.Linear
+    mix run bin/play_game.exs players/example/linear.exs players/example/random.exs
 
 Assuming that everything worked correctly you can now begin working on your own
 player implementation. You can copy one of the example player files to serve as
